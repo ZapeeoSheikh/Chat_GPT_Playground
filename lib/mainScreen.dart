@@ -14,7 +14,7 @@ class _MainScreenState extends State<MainScreen> {
   final _controller = TextEditingController();
   List<ChatMessage> _messages = [];
 
-  
+
   void _sendMessage(){
     ChatMessage _message = ChatMessage(sender: "M Rameez", message: _controller.text);
 
