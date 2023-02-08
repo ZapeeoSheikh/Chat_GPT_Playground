@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'mainScreen.dart';
+import 'package:untitled/mainScreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,14 +12,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'ChatGPT Demo',
       debugShowCheckedModeBanner: false,
-      title: 'CHAT GPT PLAYGROUND',
       theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
+        primarySwatch: Colors.green,
         useMaterial3: true,
-
       ),
-      home: MainScreen(),
+      home: const ChatScreen(),
     );
   }
 }
