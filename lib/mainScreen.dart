@@ -97,19 +97,12 @@
 //     );
 //   }
 // }
-
-
-
-
-
-
 import 'dart:async';
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:flutter/material.dart';
+import 'package:untitled/Ui%20Kit/ui.dart';
 import 'package:velocity_x/velocity_x.dart';
-
 import 'chat message.dart';
-import 'threedots.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -131,7 +124,7 @@ class _ChatScreenState extends State<ChatScreen> {
   void initState() {
     super.initState();
     chatGPT = ChatGPT.instance.builder(
-      "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",
+      "",
     );
   }
 
@@ -148,7 +141,7 @@ class _ChatScreenState extends State<ChatScreen> {
     if (_controller.text.isEmpty) return;
     ChatMessage message = ChatMessage(
       text: _controller.text,
-      sender: "user",
+      sender: "you",
       isImage: false,
     );
 
@@ -186,12 +179,12 @@ class _ChatScreenState extends State<ChatScreen> {
   void insertNewData(String response, {bool isImage = false}) {
     ChatMessage botMessage = ChatMessage(
       text: response,
-      sender: "boot",
+      sender: "bot",
       isImage: isImage,
     );
 
     setState(() {
-      _isTyping = false;
+      _isTyping = false; // stop typing
       _messages.insert(0, botMessage);
     });
   }
@@ -231,29 +224,40 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("ChatGPT & Dall-E2 Demo")),
+        // backgroundColor: MyColor.backgroundColor,
+        appBar: AppBar(
+          title: Text(
+            "ChatGPT & Dall-E2 Demo",
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: MyColor.backgroundColor,
+        ),
         body: SafeArea(
           child: Column(
             children: [
               Flexible(
-                  child: ListView.builder(
+                  child: Stack(
+                children: [
+                  ListView.builder(
                     reverse: true,
                     padding: Vx.m8,
                     itemCount: _messages.length,
                     itemBuilder: (context, index) {
                       return _messages[index];
                     },
-                  )),
-              if (_isTyping) const Center(
-                child: AlertDialog(
-                  shape: RoundedRectangleBorder(
-                      borderRadius:
-                      BorderRadius.all(Radius.circular(8.0))),
-                  backgroundColor: Colors.black87,
-                  content: LoadingIndicator(text: "Loading ..."),
-                ),
-              ),
-              const Divider(
+                  ),
+                  _isTyping
+                      ? Center(
+                          child: ClipRRect(
+                              borderRadius: BorderRadius.circular(15.0),
+                              child: Image.network(
+                                  'https://static.vectorcharacters.net/uploads/2013/11/Cute_Vector_Robot_Character_Preview.gif',
+                                  width: 120,
+                                  height: 180)))
+                      : Container(),
+                ],
+              )),
+              Divider(
                 height: 1.0,
               ),
               Container(
@@ -268,52 +272,52 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 }
 
-class LoadingIndicator extends StatelessWidget {
-  LoadingIndicator({this.text = ''});
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    var displayedText = text;
-
-    return Container(
-        padding: EdgeInsets.all(16),
-        color: Colors.black45,
-        child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              _getLoadingIndicator(),
-              _getHeading(context),
-              _getText(displayedText)
-            ]));
-  }
-
-  Padding _getLoadingIndicator() {
-    return Padding(
-        child: Container(
-            child: CircularProgressIndicator(strokeWidth: 3),
-            width: 32,
-            height: 32),
-        padding: EdgeInsets.only(bottom: 16));
-  }
-
-  Widget _getHeading(context) {
-    return Padding(
-        child: Text(
-          'Please wait …',
-          style: TextStyle(color: Colors.white, fontSize: 16.sp),
-          textAlign: TextAlign.center,
-        ),
-        padding: EdgeInsets.only(bottom: 4));
-  }
-
-  Text _getText(String displayedText) {
-    return Text(
-      displayedText,
-      style: TextStyle(color: Colors.white, fontSize: 14.sp),
-      textAlign: TextAlign.center,
-    );
-  }
-}
+// class LoadingIndicator extends StatelessWidget {
+//   LoadingIndicator({this.text = ''});
+//
+//   final String text;
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     var displayedText = text;
+//
+//     return Container(
+//         padding: EdgeInsets.all(16),
+//         color: Colors.black45,
+//         child: Column(
+//             mainAxisAlignment: MainAxisAlignment.center,
+//             mainAxisSize: MainAxisSize.min,
+//             children: [
+//               _getLoadingIndicator(),
+//               _getHeading(context),
+//               _getText(displayedText)
+//             ]));
+//   }
+//
+//   Padding _getLoadingIndicator() {
+//     return Padding(
+//         child: Container(
+//             child: CircularProgressIndicator(strokeWidth: 3),
+//             width: 32,
+//             height: 32),
+//         padding: EdgeInsets.only(bottom: 16));
+//   }
+//
+//   Widget _getHeading(context) {
+//     return Padding(
+//         child: Text(
+//           'Please wait …',
+//           style: TextStyle(color: Colors.white, fontSize: 16.sp),
+//           textAlign: TextAlign.center,
+//         ),
+//         padding: EdgeInsets.only(bottom: 4));
+//   }
+//
+//   Text _getText(String displayedText) {
+//     return Text(
+//       displayedText,
+//       style: TextStyle(color: Colors.white, fontSize: 14.sp),
+//       textAlign: TextAlign.center,
+//     );
+//   }
+// }
