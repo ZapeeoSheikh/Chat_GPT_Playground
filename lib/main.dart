@@ -30,7 +30,8 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
           ),
           // home: const ChatScreen(),
-          home: MouseClick(),
+          home: KeyCounter(),
+
         );
       },
     );
