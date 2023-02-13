@@ -3,6 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:untitled/Ui%20Kit/ui.dart';
 import 'package:untitled/mainScreen.dart';
 
+import 'key_counter.dart';
+import 'mouseClick.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -26,7 +29,8 @@ class MyApp extends StatelessWidget {
             backgroundColor: MyColor.backgroundColor,
             useMaterial3: true,
           ),
-          home: const ChatScreen(),
+          // home: const ChatScreen(),
+          home: MouseClick(),
         );
       },
     );
